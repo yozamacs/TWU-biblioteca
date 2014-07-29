@@ -25,4 +25,10 @@ public class Book {
     public int getYear() {
         return pubYear;
     }
+
+    public String getDetails() {
+        int titleChars = Math.min(getTitle().length(), 18);
+        int authorChars = Math.min(getAuthor().length(), 22);
+        return String.format("%-18s| %-22s| %-4d", getTitle().substring(0, titleChars), getAuthor().substring(0, authorChars), getYear());
+    }
 }

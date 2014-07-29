@@ -8,12 +8,12 @@ public class BookTest {
     private Book b;
     @Before
     public void SetUp() {
-        this.b = new Book("Great Gatsby", "F. Scott Fitzgerald", 1953);
+        this.b = new Book("Great Gatsby and the Long Title", "F. Scott Fitzgerald", 1953);
     }
 
     @Test
     public void shouldGetBookTitle() {
-        assertEquals(b.getTitle(), "Great Gatsby");
+        assertEquals(b.getTitle(), "Great Gatsby and the Long Title");
     }
 
     @Test
@@ -24,6 +24,11 @@ public class BookTest {
     @Test
     public void shouldGetYearPublished(){
         assertEquals(b.getYear(), 1953);
+    }
+
+    @Test
+    public void shouldGetDetails(){
+        assertEquals(b.getDetails(),"Great Gatsby and t| F. Scott Fitzgerald   | 1953");
     }
 
 }
