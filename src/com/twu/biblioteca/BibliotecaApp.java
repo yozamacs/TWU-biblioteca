@@ -6,9 +6,9 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         ArrayList<Book> bl = new ArrayList<Book>();
-        bl.add(new Book("A Wrinkle In Time"));
-        bl.add(new Book("Great Gatsby"));
-        bl.add(new Book("Anne of Green Gables"));
+        bl.add(new Book("A Wrinkle In Time", "F. Scott Fitzgerald", 1953));
+        bl.add(new Book("Great Gatsby", "F. Scott Fitzgerald", 1953));
+        bl.add(new Book("Anne of Green Gables", "F. Scott Fitzgerald", 1953));
         BibliotecaApp ba = new BibliotecaApp(System.out, bl);
         ba.start();
 
