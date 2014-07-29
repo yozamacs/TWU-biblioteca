@@ -7,10 +7,9 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class BibliotecaAppTest {
     private BibliotecaApp ba;
@@ -19,18 +18,16 @@ public class BibliotecaAppTest {
     @Before
     public void SetUp(){
         ArrayList<Book> bl = new ArrayList<Book>();
-        bl.add(new Book("A Wrinkle In Time"));
-        bl.add(new Book("Great Gatsby"));
-        bl.add(new Book("Anne of Green Gables"));
+        Book b1 = mock(Book.class);
+        when(b1.getTitle()).thenReturn("A Wrinkle In Time");
+        bl.add(b1);
+        Book b2 = mock(Book.class);
+        when(b2.getTitle()).thenReturn("Great Gatsby");
+        bl.add(b2);
         this.out = mock(PrintStream.class);
         this.ba = new BibliotecaApp(out, bl);
     }
 
-    @Test
-    public void whenBookIsCreatedTitleIsCorrect() {
-        Book b = new Book("Great Gatsby");
-        assertEquals(b.getTitle(), "Great Gatsby");
-    }
 
     @Test
     public void welcomeMessageIsProduced() {
@@ -43,7 +40,7 @@ public class BibliotecaAppTest {
         this.ba.start();
         verify(out).println("A Wrinkle In Time");
         verify(out).println("Great Gatsby");
-        verify(out).println("Anne of Green Gables");
+        //verify(out).println("Anne of Green Gables");
     }
 
 
