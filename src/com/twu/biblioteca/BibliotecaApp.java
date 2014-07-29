@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.*;
 public class BibliotecaApp {
@@ -24,9 +25,24 @@ public class BibliotecaApp {
 
     public void start() {
         out.println("Welcome to Biblioteca!!!!!");
+        out.println("Menu");
+        out.println("1. Print Book List");
+    }
+
+    public void chooseOption(int choice) {
+        if(choice==1){
+            printBookList();
+        }
+    }
+
+    public void printBookList() {
         out.println(String.format("%-18s| %-22s| %-4s", "Title", "Author", "Year"));
         for(Book b : bl) {
             out.println(b.getDetails());
         }
+    }
+
+    public int getUserChoice(InputStream in) {
+        return 1;
     }
 }
