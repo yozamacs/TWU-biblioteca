@@ -12,6 +12,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class BibliotecaAppTest {
+    private BibliotecaApp ba;
+    private PrintStream out;
+
+    @Before
+    public void SetUp(){
+        BookList bl = new BookList();
+        bl.add(new Book("A Wrinkle In Time"));
+        bl.add(new Book("Great Gatsby"));
+        bl.add(new Book("Anne of Green Gables"));
+        this.out = mock(PrintStream.class);
+        this.ba = new BibliotecaApp(out,bl);
+    }
 
 
     @Test
@@ -47,11 +59,13 @@ public class BibliotecaAppTest {
 
     @Test
     public void welcomeMessageIsProduced() {
-        PrintStream out = mock(PrintStream.class);
-        BibliotecaApp ba = new BibliotecaApp(out);
         ba.start();
         verify(out).println("Welcome to Biblioteca!!!!!");
-
     }
 
+    @Test
+    public void verifyBookTitlesArePrinted() {
+        this.ba.start();
+        verify(out).println("A Wrinkle In Time\nGreat Gatsby\nAnne of Green Gables\n");
+    }
 }
