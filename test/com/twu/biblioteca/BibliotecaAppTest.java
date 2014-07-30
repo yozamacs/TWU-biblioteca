@@ -1,13 +1,10 @@
 package com.twu.biblioteca;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.PrintStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -19,6 +16,7 @@ public class BibliotecaAppTest {
     private BibliotecaApp ba;
     private PrintStream out;
     private InputStream in;
+    private BufferedReader br;
 
     @Before
     public void SetUp() throws IOException {
@@ -31,22 +29,21 @@ public class BibliotecaAppTest {
         bl.add(b2);
         this.out = mock(PrintStream.class);
         this.in = mock(InputStream.class);
-        when(this.in.read()).thenReturn(1);
-        //this.in.
-        this.ba = new BibliotecaApp(out, bl);
+        this.br = mock(BufferedReader.class);
+        this.ba = new BibliotecaApp(out, bl,in);
     }
 
 
     @Test
     public void welcomeMessageIsProduced() {
-        ba.start();
+        ba.display();
         verify(out).println("Welcome to Biblioteca!!!!!");
     }
 
     @Test
     public void verifyBookInfoIsPrinted() {
 
-        this.ba.start();
+        //this.ba.start();
         ba.printBookList();
         verify(out).println("Title             | Author                | Year");
         verify(out).println("A Wrinkle In Time | Madeline L'engle      | 1995");
@@ -56,14 +53,14 @@ public class BibliotecaAppTest {
 
     @Test
     public void showMenuOnStartup(){
-        ba.start();
+        ba.display();
         verify(out).println("Menu");
         verify(out).println("1. Print Book List");
     }
 
     @Test
     public void when1IsChosenPrintList(){
-        ba.start();
+        //ba.start();
         ba.chooseOption(1);
         verify(out).println("Title             | Author                | Year");
         verify(out).println("A Wrinkle In Time | Madeline L'engle      | 1995");
@@ -71,10 +68,16 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void userInputRetrieved() {
-        ba.start();
-        assertThat(ba.getUserChoice(this.in), is(1));
+    public void userInputRetrieved() throws IOException {
+        when(this.br.readLine()).thenReturn("1");
+        assertThat(ba.getUserChoice(br), is(1));
 
+    }
+
+    @Test
+    public void shouldNotifyUserOnInvalidMenuOption() {
+        ba.chooseOption(2);
+        verify(out).println("Option not valid, please choose again");
     }
 
 }
