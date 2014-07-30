@@ -28,14 +28,22 @@ public class BibliotecaApp {
     }
 
     public void start() {
-        display();
-        chooseOption(getUserChoice(new BufferedReader(new InputStreamReader(in))));
+        displayWelcome();
+        boolean keepGoing = true;
+        while(keepGoing) {
+            displayMenu();
+            keepGoing = chooseOption(getUserChoice(new BufferedReader(new InputStreamReader(in))));
+        }
     }
 
-    public void display() {
-        out.println("Welcome to Biblioteca!!!!!");
+    public void displayMenu() {
         out.println("Menu");
         out.println("1. Print Book List");
+        out.println("If you would like to exit, please enter -1");
+    }
+
+    public void displayWelcome() {
+        out.println("Welcome to Biblioteca!!!!!");
     }
 
     public void printBookList() {
@@ -59,13 +67,19 @@ public class BibliotecaApp {
         return Integer.parseInt(inputLn);
     }
 
-    public void chooseOption(int choice) {
-        if(choice==1){
+    public boolean chooseOption(int choice) {
+        boolean keepGoing = true;
+        if(choice == -1) {
+            out.println("Goodbye!");
+            keepGoing =  false;
+        }
+        else if(choice==1){
             printBookList();
         }
         else {
             out.println("Option not valid, please choose again");
         }
+        return keepGoing;
     }
 
 

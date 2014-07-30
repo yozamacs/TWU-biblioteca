@@ -36,7 +36,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void welcomeMessageIsProduced() {
-        ba.display();
+        ba.displayMenu();
         verify(out).println("Welcome to Biblioteca!!!!!");
     }
 
@@ -53,7 +53,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void showMenuOnStartup(){
-        ba.display();
+        ba.displayMenu();
         verify(out).println("Menu");
         verify(out).println("1. Print Book List");
     }
@@ -78,6 +78,13 @@ public class BibliotecaAppTest {
     public void shouldNotifyUserOnInvalidMenuOption() {
         ba.chooseOption(2);
         verify(out).println("Option not valid, please choose again");
+    }
+    @Test
+    public void shouldQuitOnQuit() {
+        ba.chooseOption(1);
+        ba.chooseOption(2);
+        ba.chooseOption(-1);
+        verify(out).println("Goodbye!");
     }
 
 }
