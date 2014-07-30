@@ -63,8 +63,9 @@ public class BibliotecaApp {
         if(choice==1){
             printBookList();
         }
-        else
+        else {
             out.println("Option not valid, please choose again");
+        }
     }
 
 
