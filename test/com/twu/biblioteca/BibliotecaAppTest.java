@@ -17,7 +17,7 @@ public class BibliotecaAppTest {
     private PrintStream out;
     private InputStream in;
     private BufferedReader br;
-
+    Library library;
     @Before
     public void SetUp() throws IOException {
         ArrayList<Book> bl = new ArrayList<Book>();
@@ -27,29 +27,20 @@ public class BibliotecaAppTest {
         Book b2 = mock(Book.class);
         when(b2.getDetails()).thenReturn("Great Gatsby and t| F. Scott Fitzgerald   | 1953");
         bl.add(b2);
+        library = new Library(bl);
         this.out = mock(PrintStream.class);
         this.in = mock(InputStream.class);
         this.br = mock(BufferedReader.class);
-        this.ba = new BibliotecaApp(out, bl,in);
+        this.ba = new BibliotecaApp(library, out, in);
     }
 
 
     @Test
     public void welcomeMessageIsProduced() {
-        ba.displayMenu();
+        ba.displayWelcome();
         verify(out).println("Welcome to Biblioteca!!!!!");
     }
 
-    @Test
-    public void verifyBookInfoIsPrinted() {
-
-        //this.ba.start();
-        ba.printBookList();
-        verify(out).println("Title             | Author                | Year");
-        verify(out).println("A Wrinkle In Time | Madeline L'engle      | 1995");
-        verify(out).println("Great Gatsby and t| F. Scott Fitzgerald   | 1953");
-        //verify(out).println("Anne of Green Gables");
-    }
 
     @Test
     public void showMenuOnStartup(){
