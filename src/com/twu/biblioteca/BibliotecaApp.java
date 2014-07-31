@@ -11,20 +11,19 @@ public class BibliotecaApp {
         bl.add(new Book("Great Gatsby", "F. Scott Fitzgerald", 1953));
         bl.add(new Book("Anne of Green Gables", "A Lady", 1901));
         Library library = new Library(bl);
-        BibliotecaApp ba = new BibliotecaApp(library, System.out, System.in);
+        BibliotecaApp ba = new BibliotecaApp(library, System.out, new BufferedReader(new InputStreamReader(System.in)));
         ba.start();
 
     }
 
     PrintStream out;
-    InputStream in;
-    ArrayList<Book> bl;
+    BufferedReader reader;
     private Library library;
 
-    public BibliotecaApp(Library library, PrintStream out, InputStream in) {
+    public BibliotecaApp(Library library, PrintStream out, BufferedReader reader) {
         this.out=out;
-        this.bl = bl;
-        this.in = in;
+        this.library = library;
+        this.reader = reader;
     }
 
     public void start() {
@@ -32,13 +31,14 @@ public class BibliotecaApp {
         boolean keepGoing = true;
         while(keepGoing) {
             displayMenu();
-            keepGoing = chooseOption(getUserChoice(new BufferedReader(new InputStreamReader(in))));
+            keepGoing = chooseOption(getUserChoice(reader));
         }
     }
 
     public void displayMenu() {
         out.println("Menu");
         out.println("1. Print Book List");
+        out.println("2. Checkout a Book");
         out.println("If you would like to exit, please enter -1");
     }
 
@@ -62,18 +62,32 @@ public class BibliotecaApp {
 
     public boolean chooseOption(int choice) {
         boolean keepGoing = true;
-        if(choice == -1) {
+        if (choice == -1) {
             out.println("Goodbye!");
             keepGoing =  false;
-        }
-        else if(choice==1){
+        } else if (choice==1) {
             library.printBookList(out);
-        }
-        else {
+        } else if (choice==2) {
+            out.println("Please enter a book title");
+            library.checkOut(getBookTitleFromUser(reader));
+        } else {
             out.println("Option not valid, please choose again");
         }
         return keepGoing;
     }
 
 
+    public String getBookTitleFromUser(BufferedReader reader) {
+        String inputLn = "";
+
+        try {
+            inputLn = reader.readLine();
+            if(inputLn.length()==0){
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputLn;
+    }
 }

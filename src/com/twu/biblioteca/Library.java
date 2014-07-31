@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Library {
     private final ArrayList<Book> bookList;
@@ -19,4 +20,21 @@ public class Library {
     }
 
 
+    public void checkOut(String bookTitle) {
+        for (Book b: bookList) {
+            if (b.getTitle().equals(bookTitle)){
+                bookList.remove(b);
+                return;
+            }
+        }
+    }
+
+    public boolean inList(String bookTitle) {
+        for(Book b: bookList) {
+            if (b.getTitle().equals(bookTitle)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
