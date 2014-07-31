@@ -18,6 +18,7 @@ public class BibliotecaAppTest {
     private PrintStream out;
     private BufferedReader br;
     Library library;
+    private Menu menu;
 
     @Before
     public void SetUp() throws IOException {
@@ -33,7 +34,8 @@ public class BibliotecaAppTest {
         library = new Library(bl);
         this.out = mock(PrintStream.class);
         this.br = mock(BufferedReader.class);
-        this.ba = new BibliotecaApp(library, out, br);
+        menu = new Menu(out);
+        this.ba = new BibliotecaApp(library, out, br, menu);
     }
 
 
@@ -43,14 +45,6 @@ public class BibliotecaAppTest {
         verify(out).println("Welcome to Biblioteca!!!!!");
     }
 
-
-    @Test
-    public void showMenuOnStartup(){
-        ba.displayMenu();
-        verify(out).println("Menu");
-        verify(out).println("1. Print Book List");
-        verify(out).println("2. Checkout a Book");
-    }
 
     @Test
     public void when1IsChosenPrintList(){
@@ -100,5 +94,7 @@ public class BibliotecaAppTest {
         ba.chooseOption(2);
         assertThat(library.inList(bookTitle), CoreMatchers.is(false));
     }
+
+
 
 }

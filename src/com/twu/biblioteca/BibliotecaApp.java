@@ -11,7 +11,8 @@ public class BibliotecaApp {
         bl.add(new Book("Great Gatsby", "F. Scott Fitzgerald", 1953));
         bl.add(new Book("Anne of Green Gables", "A Lady", 1901));
         Library library = new Library(bl);
-        BibliotecaApp ba = new BibliotecaApp(library, System.out, new BufferedReader(new InputStreamReader(System.in)));
+        Menu menu = new Menu(System.out);
+        BibliotecaApp ba = new BibliotecaApp(library, System.out, new BufferedReader(new InputStreamReader(System.in)),menu);
         ba.start();
 
     }
@@ -19,27 +20,22 @@ public class BibliotecaApp {
     PrintStream out;
     BufferedReader reader;
     private Library library;
+    private Menu menu;
 
-    public BibliotecaApp(Library library, PrintStream out, BufferedReader reader) {
+    public BibliotecaApp(Library library, PrintStream out, BufferedReader reader, Menu menu) {
         this.out=out;
         this.library = library;
         this.reader = reader;
+        this.menu = menu;
     }
 
     public void start() {
         displayWelcome();
         boolean keepGoing = true;
         while(keepGoing) {
-            displayMenu();
+            menu.display();
             keepGoing = chooseOption(getUserChoice(reader));
         }
-    }
-
-    public void displayMenu() {
-        out.println("Menu");
-        out.println("1. Print Book List");
-        out.println("2. Checkout a Book");
-        out.println("If you would like to exit, please enter -1");
     }
 
     public void displayWelcome() {
