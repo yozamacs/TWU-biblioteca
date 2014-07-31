@@ -58,7 +58,7 @@ public class BibliotecaAppTest {
     @Test
     public void userInputRetrieved() throws IOException {
         when(this.br.readLine()).thenReturn("1");
-        assertThat(ba.getUserChoice(br), is(1));
+        assertThat(ba.getUserChoice(), is(1));
 
     }
 
@@ -84,7 +84,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldGetTheTitleFromTheUser() throws IOException {
         when(this.br.readLine()).thenReturn("The Great Gatsby");
-        assertThat(ba.getBookTitleFromUser(br), is("The Great Gatsby"));
+        assertThat(ba.getBookTitleFromUser(), is("The Great Gatsby"));
     }
 
     @Test

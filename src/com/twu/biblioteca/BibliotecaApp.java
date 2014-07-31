@@ -34,7 +34,7 @@ public class BibliotecaApp {
         boolean keepGoing = true;
         while(keepGoing) {
             menu.display();
-            keepGoing = chooseOption(getUserChoice(reader));
+            keepGoing = chooseOption(getUserChoice());
         }
     }
 
@@ -42,18 +42,9 @@ public class BibliotecaApp {
         out.println("Welcome to Biblioteca!!!!!");
     }
 
-    public int getUserChoice(BufferedReader reader) {
-        String inputLn = "";
-
-        try {
-            inputLn = reader.readLine();
-            if(inputLn.length()==0){
-                return -1;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Integer.parseInt(inputLn);
+    public int getUserChoice() {
+        String choice = getInputFromUser();
+        return Integer.parseInt(choice);
     }
 
     public boolean chooseOption(int choice) {
@@ -65,7 +56,7 @@ public class BibliotecaApp {
             library.printBookList(out);
         } else if (choice==2) {
             out.println("Please enter a book title");
-            library.checkOut(getBookTitleFromUser(reader));
+            library.checkOut(getInputFromUser());
         } else {
             out.println("Option not valid, please choose again");
         }
@@ -73,7 +64,21 @@ public class BibliotecaApp {
     }
 
 
-    public String getBookTitleFromUser(BufferedReader reader) {
+    public String getBookTitleFromUser() {
+        String inputLn = "";
+
+        try {
+            inputLn = reader.readLine();
+            if(inputLn.length()==0){
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputLn;
+    }
+
+    public String getInputFromUser() {
         String inputLn = "";
 
         try {
